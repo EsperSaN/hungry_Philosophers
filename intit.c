@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 10:14:21 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/17 11:24:54 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/18 01:34:21 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	init_var(t_var *var, char **av, int ac)
 	if (ac == 6)
 		var->eat_count = ft_atoi(av[5]);
 	var->philo = calloc(sizeof(t_philo), var->philo_num);
-	
+	if (var->philo == NULL)
+		return (printf("INIT_S_ER"), 0);
+	var->all_spoon = calloc();
 	int i = 0;
 	while (i < var->philo_num)
 	{

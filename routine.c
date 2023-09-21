@@ -11,12 +11,36 @@
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
+#include <error.h>
 void *rout(void *av)
 {
 	t_philo *philo ;
 	
 	philo = (t_philo*)av;
-	printf("hello from [%d]\n", (int)philo->no);
-	usleep(10);
+	usleep(2);
+int count = 1;
+while (count)
+{
+	printf("[%d] is thinking \n", philo->no);
+	usleep(philo->think_time);
+	if (philo->no % 2 == 0 )
+	{
+		pthread_mutex_lock(philo->spoon_right);
+		pthread_mutex_lock(philo->spoon_left);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->spoon_left);
+		pthread_mutex_lock(philo->spoon_right);
+	}
+	printf("[%d] grap the left fork!!! \n", philo->no);
+	printf("[%d] grap the right fork!!! \n", philo->no);
+	printf("[%d] grap all fork!!\n",philo->no);
+	usleep(philo->eat_time);
+	pthread_mutex_unlock(philo->spoon_left);
+	pthread_mutex_unlock(philo->spoon_right);
+	philo->eat_count++;
+	printf("[%d] put the fork back sry\n", philo->no);
+	usleep(philo->sleep_time);
+}
 }

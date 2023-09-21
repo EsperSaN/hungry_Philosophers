@@ -25,22 +25,27 @@ int	input_checker(char **arg)
 	return (1);
 }
 
+void sleep_ms(size_t milisec)
+{
+	usleep(milisec * 1000);
+}
+
 int	main(int ac, char **av)
 {
 	t_var var;
 
+	printf("ac = [%d]\n",start_time);
 	if (ac < 5 || ac > 6)
 		return (printf(ER_MSG), 1);
-	printf("STAGE 2\n");
+	//printf("STAGE 2\n");
 	if (!input_checker(av + 1))
 		return (printf(INP_MSG), 1);
 	if (!init_var(&var, av, ac))
 		return (printf(FAIL_INIT), 1);
-	printf("ph no: [%d]\ndie_t:[%d]\neat_time[%d]\nsleep_t[%d]\neat_count[%d]\n", var.philo_num, var.die_time, var.eat_time, var.sleep_time, var.eat_count);
+	//printf("ph no: [%d]\ndie_t:[%d]\neat_time[%d]\nsleep_t[%d]\neat_count[%d]\n", var.philo_num, var.die_time, var.eat_time, var.sleep_time, var.eat_count);
 	int i = -1;
 	while (++i < var.philo_num)
 	{
-		//printf("\n\nphilo numbe :[%d]\ndie_t:[%d]\neat_time[%d]\nsleep_t[%d]\neat_count[%d]\n", i, var.philo[i].die_time, var.philo[i].eat_time, var.philo[i].sleep_time, var.philo[i].eat_count);
 		pthread_create(&var.philo[i].philo, NULL, &rout, (void *)&var.philo[i]);
 	}
 	i = 0;
@@ -50,6 +55,4 @@ int	main(int ac, char **av)
 		printf("the thread [%d] end\n", i);
 		i++;
 	}
-	
-	
 }

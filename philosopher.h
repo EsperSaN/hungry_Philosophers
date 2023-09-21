@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <sys/time.h>
 # define ER_MSG "This program accept only 4 to 5 argument\n"
 # define INP_MSG "Please put the correct argument [ONLY POSITIVE INT NUMBER]\n"
 # define FAIL_INIT "Fail to init the value SRY\n"
@@ -24,24 +25,26 @@
 
 typedef struct s_philo {
 	pthread_t		philo;
-	int				no;
-	int				die_time;
-	int				time_eat;
-	int				eat_time;
-	int				think_time;
-	int				sleep_time;
+	long			no;
+	long			last_eat;
+	long			start_time;
+	long			die_time;
+	long			time_eat;
+	long			eat_time;
+	long			think_time;
+	long			sleep_time;
 	pthread_mutex_t	*spoon_left;
 	pthread_mutex_t	*spoon_right;
-	int				eat_count;
+	long			eat_count;
 }	t_philo;
 
 typedef struct s_variable {
-	int				philo_num;
-	int				die_time;
-	int				eat_time;
-	int				think_time;
-	int				sleep_time;
-	int				eat_count;
+	long				philo_num;
+	long				die_time;
+	long				eat_time;
+	long				think_time;
+	long				sleep_time;
+	long				eat_count;
 	pthread_mutex_t	*all_spoon;
 	struct s_philo	*philo;
 }	t_var;

@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:45:04 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/18 01:33:58 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/22 09:58:52 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,36 @@
 
 typedef struct s_philo {
 	pthread_t		philo;
-	long			no;
-	long			last_eat;
-	long			start_time;
-	long			die_time;
-	long			time_eat;
-	long			eat_time;
-	long			think_time;
-	long			sleep_time;
+	size_t			no;
+	size_t			last_eat;
+	size_t			start_time;
+	size_t			die_time;
+	size_t			time_eat;
+	size_t			eat_time;
+	size_t			think_time;
+	size_t			sleep_time;
+	pthread_mutex_t	*start;
 	pthread_mutex_t	*spoon_left;
 	pthread_mutex_t	*spoon_right;
-	long			eat_count;
+	size_t			eat_count;
 }	t_philo;
 
 typedef struct s_variable {
-	long				philo_num;
-	long				die_time;
-	long				eat_time;
-	long				think_time;
-	long				sleep_time;
-	long				eat_count;
-	pthread_mutex_t	*all_spoon;
-	struct s_philo	*philo;
+	size_t				philo_num;
+	size_t				die_time;
+	size_t				eat_time;
+	size_t				think_time;
+	size_t				sleep_time;
+	size_t				eat_count;
+	size_t				start_time;
+	pthread_mutex_t		*start;
+	pthread_mutex_t		*all_spoon;
+	struct s_philo		*philo;
 }	t_var;
 
+
+size_t	get_time(void);
+void	sleep_ms(size_t milisec);
 int		is_all_num(char *str);
 long	ft_atoi(const char *str);
 int		init_var(t_var *var, char **av, int ac);

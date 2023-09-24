@@ -25,7 +25,7 @@
 
 typedef struct s_philo {
 	pthread_t		philo;
-	pthread_mutex_t	*print;
+	pthread_mutex_t	*print_lock;
 	pthread_mutex_t	*spoon_left;
 	pthread_mutex_t	*spoon_right;
 	long			begin_time;
@@ -33,6 +33,7 @@ typedef struct s_philo {
 	long			live_until;
 	int				no;
 	long			last_eat_time;
+	long			p_time;
 	long			die_time;
 	long			eat_time;
 	long			eat_count;
@@ -48,14 +49,14 @@ typedef struct s_variable {
 	long				sleep_time;
 	long				eat_count;
 	long				begin_epoch_time;
-	pthread_mutex_t		*print;
+	pthread_mutex_t		*print_lock;
 	pthread_mutex_t		*all_spoon;
 	struct s_philo		*philo;
 }	t_var;
 
 
 size_t	get_time(void);
-void	sleep_ms(size_t milisec);
+void	sleep_ms(t_philo *p, size_t milisec);
 int		is_all_num(char *str);
 long	ft_atoi(const char *str);
 int		init_var(t_var *var, char **av, int ac);

@@ -18,22 +18,24 @@ void	report(t_philo *p, char *report)
 	long	local_time;
 	long	ms_time;
 
-	if (p->is_die == 1)
+	if (*p->is_die == 1)
 		return ;
-	if (pthread_mutex_lock(p->print_lock))
-		return ;
-	printf("[%ld] philo [%d] %s\n", dif_time(p->begin_time), p->no, report);
+	pthread_mutex_lock(p->print_lock);
+	if (*p->is_die == 0)
+		printf("[%ld] philo [%d] %s\n", dif_time(p->begin_time), p->no, report);
 	pthread_mutex_unlock(p->print_lock);
 }
 
 void	eat_now(t_philo	*philo)
 {
-	if (philo->no % 2 == 0 && philo->is_die == 0)
+	if (*philo->is_die == 1)
+		return ;
+	if (philo->no % 2 == 0 && *philo->is_die == 0)
 	{
 		pthread_mutex_lock(philo->spoon_right);
 		pthread_mutex_lock(philo->spoon_left);
 	}
-	else if (philo->is_die == 0)
+	else if (*philo->is_die == 0)
 	{
 		pthread_mutex_lock(philo->spoon_left);
 		pthread_mutex_lock(philo->spoon_right);
@@ -57,7 +59,7 @@ void	*rout(void *av)
 	count = 1;
 	st_time = get_time();
 	philo->last_eat_time = st_time;
-	while (philo->is_die == 0)
+	while (*philo->is_die == 0)
 	{
 		report(philo, "is thinking");
 		eat_now(philo);

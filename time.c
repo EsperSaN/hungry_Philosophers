@@ -43,16 +43,17 @@ void	sleep_ms(t_philo *p, size_t ms)
 
 	p->p_time = get_time();
 	dif = 0;
-	if (p->is_die == 1)
+	if (*p->is_die == 1)
 		return ;
 	while (dif < ms)
 	{
 		if (dif_time(p->last_eat_time) > p->die_time)
 		{
-			if (pthread_mutex_lock(p->print_lock))
-				return ;
-			printf("[%lu] philo [%d] die\n", dif_time(p->begin_time), p->no);
-			p->is_die = 1;
+			pthread_mutex_lock(p->print_lock);
+			if (*p->is_die == 0)
+				printf("[%lu] philo [%d] die\n", dif_time(p->begin_time), p->no);
+			*p->is_die = 1;
+			pthread_mutex_unlock(p->print_lock);
 		}
 		dif = dif_time(p->p_time);
 		usleep(10);

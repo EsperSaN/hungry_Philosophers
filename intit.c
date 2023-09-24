@@ -39,6 +39,8 @@ int	init_var(t_var *var, char **av, int ac)
 	}
 	var->print_lock = calloc(sizeof(pthread_mutex_t), 1);
 	pthread_mutex_init(var->print_lock, NULL);
+	var->is_die = calloc(sizeof(int), 1);
+	*var->is_die = 0;
 	i = 0;
 	while (i < var->philo_num)
 	{
@@ -50,7 +52,7 @@ int	init_var(t_var *var, char **av, int ac)
 		var->philo[i].spoon_left = &var->all_spoon[i];
 		var->philo[i].begin_time = var->begin_epoch_time;
 		var->philo[i].print_lock = var->print_lock;
-		var->philo[i].is_die = 0;
+		var->philo[i].is_die = var->is_die;
 		if (i == (var->philo_num - 1))
 			var->philo[i].spoon_right = &var->all_spoon[0];
 		else

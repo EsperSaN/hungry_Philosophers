@@ -37,7 +37,7 @@ typedef struct s_philo {
 	long			die_time;
 	long			eat_time;
 	long			eat_count;
-	long			is_die;
+	int    			*is_die;
 	long			sleep_time;
 }	t_philo;
 
@@ -49,6 +49,7 @@ typedef struct s_variable {
 	long				sleep_time;
 	long				eat_count;
 	long				begin_epoch_time;
+	int					*is_die;
 	pthread_mutex_t		*print_lock;
 	pthread_mutex_t		*all_spoon;
 	struct s_philo		*philo;

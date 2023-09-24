@@ -17,16 +17,4 @@ void	stop_all_phil(t_var *var)
 	int	i;
 
 	i = 0;
-	while (i < var->philo_num)
-	{
-		pthread_mutex_destroy(&var->all_spoon[i]);
-		i++;
-	}
-	i = 0;
-	while (i < var->philo_num)
-	{
-		printf("assign die to [%d]\n", i);
-		var->philo[i].is_die = 1;
-		i++;
-	}
 }

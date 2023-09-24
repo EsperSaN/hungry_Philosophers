@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 10:58:06 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/25 00:26:00 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/25 02:58:35 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	sleep_ms(t_philo *p, size_t ms)
 			pthread_mutex_unlock(p->print_lock);
 		}
 		dif = dif_time(p->p_time);
-		usleep(10);
+		usleep(5);
 	}
 }
 
@@ -55,12 +55,16 @@ void	eat_now(t_philo	*philo)
 	if (philo->no % 2 == 0)
 	{
 		pthread_mutex_lock(philo->spoon_right);
+		report(philo, "take right fork");
 		pthread_mutex_lock(philo->spoon_left);
+		report(philo, "take left fork");
 	}
 	else
 	{
 		pthread_mutex_lock(philo->spoon_left);
+		report(philo, "take left fork");
 		pthread_mutex_lock(philo->spoon_right);
+		report(philo, "take right fork");
 	}
 	report(philo, "has taken a fork");
 	report(philo, "is eating");
@@ -77,7 +81,7 @@ void	*rout(void *av)
 	t_philo	*philo;
 
 	philo = (t_philo *) av;
-	count = 1;
+	count = 0;
 	st_time = get_time();
 	philo->last_eat_time = st_time;
 	while (*philo->is_die == 0)

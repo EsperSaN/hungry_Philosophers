@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:42:16 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/24 23:58:51 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/25 03:05:12 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,25 +60,29 @@ int	input_checker(char **arg)
 
 int	main(int ac, char **av)
 {
-	t_var	var;
+	t_var	v;
 	int		i;
 
 	i = -1;
-	var.begin_epoch_time = get_time();
+	v.begin_epoch_time = get_time();
 	if (ac < 5 || ac > 6)
 		return (printf(ER_MSG), 1);
 	if (!input_checker(av + 1))
 		return (printf(INP_MSG), 1);
-	if (!init_var(&var, av, ac))
+	if (!init_var(&v, av, ac))
 		return (printf(FAIL_INIT), 1);
-	while (++i < var.philo_num)
+	while (++i < v.philo_num)
 	{
-		if (i % 2 == 0)
-			usleep(50);
-		pthread_create(&var.philo[i].philo, NULL, &rout, (void *)&var.philo[i]);
+		if (v.philo_num = 1)
+			pthread_create(&v.philo[]);
+		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]) != 0)
+		{
+			printf("Error :Thread cant be create\n");
+			break ;
+		}
 	}
 	i = -1;
-	while (++i < var.philo_num)
-		pthread_join(var.philo[i].philo, NULL);
-	let_em_free(&var);
+	while (++i < v.philo_num)
+		pthread_join(v.philo[i].philo, NULL);
+	let_em_free(&v);
 }

@@ -32,19 +32,39 @@ int	main(int ac, char **av)
 	int		i;
 
 	i = -1;
-	var.start_time = get_time();
+	var.begin_epoch_time = get_time();
 	if (ac < 5 || ac > 6)
 		return (printf(ER_MSG), 1);
 	if (!input_checker(av + 1))
 		return (printf(INP_MSG), 1);
 	if (!init_var(&var, av, ac))
 		return (printf(FAIL_INIT), 1);
-	//printf("ph no: [%d]\ndie_t:[%d]\neat_time[%d]\nsleep_t[%d]\neat_count[%d]\n", var.philo_num, var.die_time, var.eat_time, var.sleep_time, var.eat_count);
+	printf("ph no: [%d]\ndie_t:[%d]\neat_time[%d]\nsleep_t[%d]\neat_count[%d]\nbegin epcho[%lu]\n", var.philo_num, var.die_time, var.eat_time, var.sleep_time, var.eat_count, var.begin_epoch_time);
 	while (++i < var.philo_num)
 	{
 		pthread_create(&var.philo[i].philo, NULL, &rout, (void *)&var.philo[i]);
+		usleep(50);
 	}
 	i = 0;
+
+	usleep(50);
+	while (1)
+	{
+		if (i = var.philo_num)
+			i = 0;
+		long ms_time = get_time();
+		int j = 0;
+		while (j < var.philo_num)
+		{	
+			if (ms_time > var.philo[j].live_until)
+			{
+				printf("[%d] philo [%d] dies\n", ms_time - var.begin_epoch_time, i);
+				exit(0);
+			}
+			j++;
+		}
+		i++;
+	}
 
 	while (i < var.philo_num)
 	{

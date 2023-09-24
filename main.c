@@ -1,6 +1,6 @@
 #include <sys/time.h>
 #include <stdio.h>
-long get_time()
+size_t get_time()
 {
 	struct timeval t;
 	gettimeofday(&t,NULL);

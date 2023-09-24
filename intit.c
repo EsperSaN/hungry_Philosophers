@@ -37,20 +37,23 @@ int	init_var(t_var *var, char **av, int ac)
 			return (printf("vary error fail to init the spoon\n"), 1);
 		i++;
 	}
-	var->start = calloc(sizeof(pthread_mutex_t), 1);
-	pthread_mutex_init(var->start, NULL);
+	var->print = calloc(sizeof(pthread_mutex_t), 1);
+	pthread_mutex_init(var->print, NULL);
 	i = 0;
 	while (i < var->philo_num)
 	{
 		var->philo[i].no = i;
+		printf("assign [%lu]");
 		var->philo[i].die_time = var->die_time;
 		var->philo[i].eat_time = var->eat_time;
 		var->philo[i].sleep_time = var->sleep_time;
 		var->philo[i].eat_count = var->eat_count;
+		//printf("eat count = [%lu]", var->philo[i].eat_count);
 		var->philo[i].spoon_left = &var->all_spoon[i];
-		var->philo[i].start_time = var->start_time;
-		var->philo[i].last_eat = var->start_time;
-		var->philo[i].start = var->start;
+		var->philo[i].begin_time = var->begin_epoch_time;
+		//printf("assign time is [%lu]\n",var->philo[i].begin_time);
+		var->philo[i].last_eat_time = var->begin_epoch_time;
+		var->philo[i].print = var->print;
 		if (i == (var->philo_num - 1))
 			var->philo[i].spoon_right = &var->all_spoon[0];
 		else

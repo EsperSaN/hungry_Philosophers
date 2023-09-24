@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:45:04 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/22 09:58:52 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:54:01 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo {
 	long			die_time;
 	long			eat_time;
 	long			eat_count;
-	long			think_time;
+	long			is_die;
 	long			sleep_time;
 }	t_philo;
 
@@ -54,9 +54,12 @@ typedef struct s_variable {
 	struct s_philo		*philo;
 }	t_var;
 
-
 size_t	get_time(void);
+void	stop_all_phil(t_var *var);
+long	dif_time(long time);
+void	sleep_ms(t_philo *p, size_t ms);
 void	sleep_ms(t_philo *p, size_t milisec);
+long	mins_ab_value(long x, long y);
 int		is_all_num(char *str);
 long	ft_atoi(const char *str);
 int		init_var(t_var *var, char **av, int ac);

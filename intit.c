@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 10:14:21 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/22 10:57:16 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/24 18:47:42 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	init_var(t_var *var, char **av, int ac)
 		var->philo[i].spoon_left = &var->all_spoon[i];
 		var->philo[i].begin_time = var->begin_epoch_time;
 		var->philo[i].print_lock = var->print_lock;
+		var->philo[i].is_die = 0;
 		if (i == (var->philo_num - 1))
 			var->philo[i].spoon_right = &var->all_spoon[0];
 		else

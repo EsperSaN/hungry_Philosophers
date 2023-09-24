@@ -6,7 +6,7 @@ FLAGS = -Wall -Werror -Wextra
 
 THREAD_F = -lpthread
 
-SRC = philosopher.c util.c intit.c routine.c
+SRC = philosopher.c util.c intit.c routine.c time.c stop_n_free.c
 
 OBJ = ${SRC:.c=.o}
 all = ${NAME}

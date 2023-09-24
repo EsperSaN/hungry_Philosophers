@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 10:14:21 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/24 23:53:16 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:13:19 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ void	init_argument(t_var *var, char **av, int ac)
 
 int	allocate_data(t_var *var)
 {
-	var->is_die = calloc(sizeof(int), 1);
+	var->is_die = ft_calloc(sizeof(int), 1);
 	if (var->is_die == NULL)
 		return (0);
-	var->philo = calloc(sizeof(t_philo), var->philo_num);
+	var->philo = ft_calloc(sizeof(t_philo), var->philo_num);
 	if (var->philo == NULL)
 		return (0);
-	var->all_spoon = calloc(sizeof(pthread_mutex_t), var->philo_num);
+	var->all_spoon = ft_calloc(sizeof(pthread_mutex_t), var->philo_num);
 	if (var->all_spoon == NULL)
 		return (0);
-	var->print_lock = calloc(sizeof(pthread_mutex_t), 1);
+	var->print_lock = ft_calloc(sizeof(pthread_mutex_t), 1);
 	if (var->print_lock == NULL)
 		return (0);
 	return (1);

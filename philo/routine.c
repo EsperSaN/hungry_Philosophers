@@ -12,6 +12,9 @@
 
 #include "philosopher.h"
 
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/syscall.h>
 void	sleep_ms(t_philo *p, size_t ms)
 {
 	long	ms_time_now;
@@ -81,9 +84,16 @@ void	*rout(void *av)
 	t_philo	*philo;
 
 	philo = (t_philo *) av;
+	pid_t x = syscall(__NR_gettid);
+
+	printf("p [%d] thread id [%lu]\n", philo->no, x );
+	while (*philo->is_start == 0)
+		usleep(1);
 	count = 0;
 	st_time = get_time();
+	printf("start time [%lu]\n", st_time);
 	philo->last_eat_time = st_time;
+	philo->begin_time = st_time;
 	while (*philo->is_die == 0)
 	{
 		report(philo, "is thinking");

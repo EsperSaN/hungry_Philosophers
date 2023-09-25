@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <limits.h>
+# include <stdint.h>
 
 # define ER_MSG "This program accept only 4 to 5 argument\n"
 # define INP_MSG "Please put the correct argument [ONLY POSITIVE INT NUMBER]\n"
@@ -32,6 +33,7 @@ typedef struct s_philo {
 	pthread_mutex_t	*spoon_right;
 	int				no;
 	int				*is_die;
+	int				*is_start;
 	long			begin_time;
 	long			last_eat_time;
 	long			p_time;
@@ -50,6 +52,7 @@ typedef struct s_variable {
 	long				eat_count;
 	long				begin_epoch_time;
 	int					*is_die;
+	int					*is_start;
 	pthread_mutex_t		*print_lock;
 	pthread_mutex_t		*all_spoon;
 	struct s_philo		*philo;

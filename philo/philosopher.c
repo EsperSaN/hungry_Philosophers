@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philosopher.h"
-
+#include <errno.h>
 void	nfree(void *p)
 {
 	free(p);
@@ -73,14 +73,14 @@ int	main(int ac, char **av)
 		return (printf(FAIL_INIT), 1);
 	while (++i < v.philo_num)
 	{
-		if (v.philo_num = 1)
-			pthread_create(&v.philo[]);
-		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]) != 0)
+		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]) == -1)
 		{
 			printf("Error :Thread cant be create\n");
 			break ;
 		}
 	}
+	usleep(2000000);
+	*v.is_start = 1;
 	i = -1;
 	while (++i < v.philo_num)
 		pthread_join(v.philo[i].philo, NULL);

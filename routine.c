@@ -12,7 +12,6 @@
 
 #include "philosopher.h"
 
-<<<<<<< HEAD
 void	die_check(t_philo *p)
 {
 	if (dif_time(p->last_eat_time) > p->die_time)
@@ -25,11 +24,6 @@ void	die_check(t_philo *p)
 	}
 }
 
-=======
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/syscall.h>
->>>>>>> c97d1307390bd0d4e8d7ba243054cfea5a64269a
 void	sleep_ms(t_philo *p, size_t ms)
 {
 	long	ms_time_now;
@@ -87,21 +81,11 @@ void	*rout(void *av)
 	t_philo	*philo;
 
 	philo = (t_philo *) av;
-<<<<<<< HEAD
 	if (philo->no % 2 == 0)
 		usleep(7);
-=======
-	pid_t x = syscall(__NR_gettid);
-
-	printf("p [%d] thread id [%lu]\n", philo->no, x );
-	while (*philo->is_start == 0)
-		usleep(1);
->>>>>>> c97d1307390bd0d4e8d7ba243054cfea5a64269a
 	count = 0;
 	st_time = get_time();
-	printf("start time [%lu]\n", st_time);
 	philo->last_eat_time = st_time;
-	philo->begin_time = st_time;
 	while (*philo->is_die == 0)
 	{
 		report(philo, "is thinking");

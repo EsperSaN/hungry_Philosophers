@@ -33,7 +33,6 @@ size_t	get_time(void)
 
 long	dif_time(long time)
 {
-	//printf("dif time [%lu] and [%lu]\n", time, get_time());
 	return (get_time() - time);
 }
 

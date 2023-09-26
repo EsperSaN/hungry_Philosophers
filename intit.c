@@ -29,9 +29,6 @@ int	allocate_data(t_var *var)
 	var->is_die = ft_calloc(sizeof(int), 1);
 	if (var->is_die == NULL)
 		return (0);
-	var->is_start = ft_calloc(sizeof(int), 1);
-	if (var->is_start == NULL)
-		return (0);
 	var->philo = ft_calloc(sizeof(t_philo), var->philo_num);
 	if (var->philo == NULL)
 		return (0);
@@ -50,7 +47,6 @@ int	init_data(t_var *var)
 
 	i = 0;
 	*var->is_die = 0;
-	*var->is_start = 0;
 	while (i < var->philo_num)
 	{
 		if (pthread_mutex_init(&var->all_spoon[i], NULL) != 0)
@@ -79,7 +75,6 @@ void	assign_philo_data(t_var *var)
 		var->philo[i].begin_time = var->begin_epoch_time;
 		var->philo[i].print_lock = var->print_lock;
 		var->philo[i].is_die = var->is_die;
-		var->philo[i].is_start = var->is_start;
 		if (i == (var->philo_num - 1))
 			var->philo[i].spoon_right = &var->all_spoon[0];
 		else
@@ -101,9 +96,7 @@ int	init_var(t_var *var, char **av, int ac)
 	if (!var)
 		return (0);
 	init_argument(var, av, ac);
-	if (!allocate_data(var))
-		return (0);
-	if (!init_data(var))
+	if (!allocate_data(var) || !init_data(var))
 		return (0);
 	assign_philo_data(var);
 	return (1);

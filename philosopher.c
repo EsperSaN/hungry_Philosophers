@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philosopher.h"
-<<<<<<< HEAD
 
 void	mammy_thread_takking_care_of_all_philo(t_var *v)
 {
@@ -28,9 +27,6 @@ void	mammy_thread_takking_care_of_all_philo(t_var *v)
 	}
 }
 
-=======
-#include <errno.h>
->>>>>>> c97d1307390bd0d4e8d7ba243054cfea5a64269a
 void	nfree(void *p)
 {
 	free(p);
@@ -92,24 +88,15 @@ int	main(int ac, char **av)
 		return (printf(FAIL_INIT), 1);
 	while (++i < v.philo_num)
 	{
-<<<<<<< HEAD
 		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]))
-=======
-		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]) == -1)
->>>>>>> c97d1307390bd0d4e8d7ba243054cfea5a64269a
 		{
 			printf("Error :Thread cant be create\n");
 			let_em_free(&v);
 			return (1);
 		}
 	}
-<<<<<<< HEAD
 	usleep(5);
 	mammy_thread_takking_care_of_all_philo(&v);
-=======
-	usleep(2000000);
-	*v.is_start = 1;
->>>>>>> c97d1307390bd0d4e8d7ba243054cfea5a64269a
 	i = -1;
 	while (++i < v.philo_num)
 		pthread_join(v.philo[i].philo, NULL);

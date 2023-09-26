@@ -6,11 +6,23 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 10:58:06 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/25 02:58:35 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/26 08:06:52 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+void	die_check(t_philo *p)
+{
+	if (dif_time(p->last_eat_time) > p->die_time)
+	{
+		pthread_mutex_lock(p->print_lock);
+		if (*p->is_die == 0)
+			printf("%lu    %d    died\n", dif_time(p->begin_time), p->no);
+		*p->is_die = 1;
+		pthread_mutex_unlock(p->print_lock);
+	}
+}
 
 void	sleep_ms(t_philo *p, size_t ms)
 {
@@ -23,16 +35,8 @@ void	sleep_ms(t_philo *p, size_t ms)
 		return ;
 	while (dif < ms)
 	{
-		if (dif_time(p->last_eat_time) > p->die_time)
-		{
-			pthread_mutex_lock(p->print_lock);
-			if (*p->is_die == 0)
-				printf("%lu    %d    died\n", dif_time(p->begin_time), p->no);
-			*p->is_die = 1;
-			pthread_mutex_unlock(p->print_lock);
-		}
+		usleep(1);
 		dif = dif_time(p->p_time);
-		usleep(5);
 	}
 }
 
@@ -55,21 +59,17 @@ void	eat_now(t_philo	*philo)
 	if (philo->no % 2 == 0)
 	{
 		pthread_mutex_lock(philo->spoon_right);
-		report(philo, "take right fork");
 		pthread_mutex_lock(philo->spoon_left);
-		report(philo, "take left fork");
 	}
 	else
 	{
 		pthread_mutex_lock(philo->spoon_left);
-		report(philo, "take left fork");
 		pthread_mutex_lock(philo->spoon_right);
-		report(philo, "take right fork");
 	}
 	report(philo, "has taken a fork");
 	report(philo, "is eating");
-	sleep_ms(philo, philo->eat_time);
 	philo->last_eat_time = get_time();
+	sleep_ms(philo, philo->eat_time);
 	pthread_mutex_unlock(philo->spoon_left);
 	pthread_mutex_unlock(philo->spoon_right);
 }
@@ -81,12 +81,16 @@ void	*rout(void *av)
 	t_philo	*philo;
 
 	philo = (t_philo *) av;
+	if (philo->no % 2 == 0)
+		usleep(7);
 	count = 0;
 	st_time = get_time();
 	philo->last_eat_time = st_time;
 	while (*philo->is_die == 0)
 	{
 		report(philo, "is thinking");
+		while (philo->spoon_left == NULL && philo->spoon_right == NULL && *philo->is_die == 0)
+			sleep_ms(philo, philo->die_time);
 		eat_now(philo);
 		count++;
 		if (count == philo->eat_count)

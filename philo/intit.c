@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 10:14:21 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/25 00:13:19 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/26 02:47:37 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ void	assign_philo_data(t_var *var)
 			var->philo[i].spoon_right = &var->all_spoon[0];
 		else
 			var->philo[i].spoon_right = &var->all_spoon[i + 1];
+		if (var->philo_num == 1)
+		{
+			var->philo[i].spoon_left = NULL;
+			var->philo[i].spoon_right = NULL;
+		}
 		i++;
 	}
 }
@@ -93,7 +98,6 @@ int	init_var(t_var *var, char **av, int ac)
 	init_argument(var, av, ac);
 	if (!allocate_data(var) || !init_data(var))
 		return (0);
-
 	assign_philo_data(var);
 	return (1);
 }

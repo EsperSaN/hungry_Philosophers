@@ -6,11 +6,26 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:42:16 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/25 03:05:12 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/26 02:45:50 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosopher.h"
+
+void	mammy_thread_takking_care_of_all_philo(t_var *v)
+{
+	int	i;
+
+	i = 0;
+	while (*v->is_die == 0)
+	{
+		usleep(1);
+		if (i == v->philo_num)
+			i = 0;
+		die_check(&v->philo[i]);
+		i++;
+	}
+}
 
 void	nfree(void *p)
 {
@@ -73,16 +88,18 @@ int	main(int ac, char **av)
 		return (printf(FAIL_INIT), 1);
 	while (++i < v.philo_num)
 	{
-		if (v.philo_num = 1)
-			pthread_create(&v.philo[]);
-		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]) != 0)
+		if (pthread_create(&v.philo[i].philo, NULL, &rout, (void *)&v.philo[i]))
 		{
 			printf("Error :Thread cant be create\n");
-			break ;
+			let_em_free(&v);
+			return (1);
 		}
 	}
+	usleep(5);
+	mammy_thread_takking_care_of_all_philo(&v);
 	i = -1;
 	while (++i < v.philo_num)
 		pthread_join(v.philo[i].philo, NULL);
 	let_em_free(&v);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: pruenrua <pruenrua@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:45:04 by pruenrua          #+#    #+#             */
-/*   Updated: 2023/09/25 00:26:45 by pruenrua         ###   ########.fr       */
+/*   Updated: 2023/09/25 22:19:17 by pruenrua         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_variable {
 }	t_var;
 
 size_t		get_time(void);
+void		die_check(t_philo *p);
 void		*ft_calloc(size_t count, size_t size);
 long		dif_time(long time);
 void		sleep_ms(t_philo *p, size_t ms);
